@@ -1,4 +1,4 @@
-# IntuitiveLanguageInterpereter
+# Intuitive Language Interpereter
 
 Interpreter for the Intuitive Language.
 
