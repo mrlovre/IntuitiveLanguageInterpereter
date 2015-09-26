@@ -1,7 +1,6 @@
 -- | Interpreter for the __Intuitive Language__.
 module Main where
 
-import           Control.Monad
 import           Text.Parsec
 
 -- | Parsec type constraints.
@@ -64,9 +63,9 @@ tToS t = case t of
 
 -- | Parses a variable name.
 parseVariable :: ParserType
-parseVariable = Var <$> (return <$> letter) `mplus` many (letter <|> digit)
+parseVariable = Var <$> ((:) <$> letter <*> many (letter <|> digit))
 
--- | Parses an arbitrary token from its symbolic representation. 
+-- | Parses an arbitrary token from its symbolic representation.
 parseToken :: Token -> ParserType
 parseToken t = string (tToS t) >> return t
 
@@ -76,7 +75,13 @@ parseFunction = string "function" >> spaces >> string "of" >> return KFunc
 
 -- | Parses a fractional value. Denominator can be omitted if equal to 1.
 parseNumber :: ParserType
-parseNumber = undefined
+parseNumber = Number <$> parseSignedNumber <*> parseDenominator where
+    parseDenominator = option 1 (spaces >> parseToken OpDiv >> spaces >> parseSignedNumber)
+
+-- | Parse value of signed number.
+parseSignedNumber :: Parsec String () Int
+parseSignedNumber = read <$> ((++) <$> parseSign <*> many1 digit) where
+    parseSign = option "" (string (tToS UMinus) <|> return "" <* string (tToS UPlus))
 
 -- | Main program.
 main :: IO ()

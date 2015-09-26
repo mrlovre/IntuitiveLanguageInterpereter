@@ -11,4 +11,3 @@ executable IntuitiveLanguage
                    base >= 4,
                    parsec
   ghc-options:     -Wall
-
