@@ -6,6 +6,6 @@ Interpreter for the Intuitive Language.
 *To be added.*
 
 ### Progress:
-- [ ] Lexical parser
+- [x] Lexical parser
 - [ ] Syntax and semantics
 - [ ] Interpreter

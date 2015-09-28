@@ -9,5 +9,6 @@ executable IntuitiveLanguage
   main-is:         Main.hs
   build-depends:   
                    base >= 4,
-                   parsec
+                   parsec,
+                   mtl
   ghc-options:     -Wall
